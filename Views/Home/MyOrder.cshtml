@@ -1,0 +1,128 @@
+﻿@model IEnumerable<BanckOfClothesServer.Models.Order>
+@{
+    ViewBag.Title = "About";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">My orders</h1>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>order id </th>
+            <th>Status </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr id="@d.Id">
+                <td>@d.Id</td>
+                <td>@d.OrderStatus</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="divOrderDetails" class="Order-Details" style="display:none">
+    <h1>Order details</h1>
+    <table class="table table-bordered table-responsive table-hover" id="tblOrderDetails">
+        <thead>
+            <tr>
+                <th>Product </th>
+                <th>Quantity </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+
+<script>
+    //function ShowDetails(id) {
+    //    document.getElementById("divOrderDetails").style.display = "block";
+    //    $.ajax({
+    //        type: "Get",
+    //        url: "http://localhost/BanckOfClothesServer/Home/GetOrderDetails/" + id,
+    //        data: JSON.stringify(id),
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        success: function (r) {
+    //            alert(r + " record(s) inserted.");
+    //        }
+    //    });
+    //    //Get the reference of the Table's TBODY element.
+    //    var tBody = document.getElementById("#tblOrderDetails > TBODY")[0];
+    //    console.log(tBody);
+    //}
+    //$("body").on("click", "tr", function () {
+    //    alert("hi");
+        //var Product = $("#Product");
+        //var Season = $("#Season");
+        //var Status = $("#Status");
+        //var Size = $("#Size");
+        //var Quantity = $("#Quantity");
+        //var Color = $("#Color");
+        //var Gender = $("#Gender");
+        ////Get the reference of the Table's TBODY element.
+        //var tBody = $("#tblOrderDetails > TBODY")[0];
+
+        ////Add Row.
+        //var row = tBody.insertRow(-1);
+
+        ////Add Product cell.
+        //cell = $(row.insertCell(-1));
+        //cell.html(Product.val());
+
+        ////Add Season cell.
+        //cell = $(row.insertCell(-1));
+        //cell.html(Season.val());
+
+        ////Add Status cell.
+        //cell = $(row.insertCell(-1));
+        //cell.html(Status.val());
+
+        ////Add Size cell.
+        //cell = $(row.insertCell(-1));
+        //cell.html(Size.val());
+
+        ////Add Quantity cell.
+        //var cell = $(row.insertCell(-1));
+        //cell.html(Quantity.val());
+
+        ////Add Color cell.
+        //var cell = $(row.insertCell(-1));
+        //cell.html(Color.val());
+
+        ////Add Gender cell.
+        //var cell = $(row.insertCell(-1));
+        //cell.html(Gender.val());
+
+        ////Add Button cell.
+        //cell = $(row.insertCell(-1));
+        //var btnRemove = $("<input />");
+        //btnRemove.attr("type", "button");
+        //btnRemove.attr("class", "btn btn-default");
+
+        //btnRemove.attr("onclick", "Remove(this);");
+        //btnRemove.val("Remove");
+        //cell.append(btnRemove);
+
+        ////Clear the TextBoxes.
+        //Product.val("");
+        //Season.val("");
+        //Status.val("");
+        //Size.val("");
+        //Quantity.val("");
+        //Color.val("");
+        //Gender.val("");
+    //});
+</script>

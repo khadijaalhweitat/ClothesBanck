@@ -1,0 +1,214 @@
+﻿@model BanckOfClothesServer.Models.OrderDetails
+@using System.Collections
+@using BanckOfClothesServer.Enum
+
+@using (Html.BeginForm("", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new order.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Product, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Product.Id,
+                  new SelectList((IEnumerable)ViewData["products"], "Value", "Text"),
+                    "Select product",
+                    new { @class = "form-control", id = "Product" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Season, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Product.Id,
+                  new SelectList(Enum.GetValues(typeof(Season))),
+                    "Select season",
+                    new { @class = "form-control", id = "Season" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Status, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Product.Id,
+                  new SelectList(Enum.GetValues(typeof(ProductStatus))),
+                    "Select Status",
+                    new { @class = "form-control", id = "Status" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Size, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Product.Id,
+                  new SelectList(Enum.GetValues(typeof(Size))),
+                    "Select Size",
+                    new { @class = "form-control", id = "Size" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Color, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Product.Id,
+                  new SelectList(Enum.GetValues(typeof(Color))),
+                    "Select Size",
+                    new { @class = "form-control", id = "Color" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Quantity, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", id = "Quantity" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Product.Id,
+                  new SelectList(Enum.GetValues(typeof(Gender))),
+                    "Select season",
+                    new { @class = "form-control", id = "Gender" })
+        </div>
+    </div>
+}
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" class="btn btn-default" value="Add Item" id="btnAdd" />
+    </div>
+</div>
+
+<div class="form-group">
+    <div>
+        <table class="table" id="tblOrderDetails">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Season</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" class="btn btn-default" value="Checkout" id="Checkout" />
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+
+<script>
+    $("body").on("click", "#btnAdd", function () {
+        var Product = $("#Product");
+        var Season = $("#Season");
+        var Status = $("#Status");
+        var Size = $("#Size");
+        var Quantity = $("#Quantity");
+        var Color = $("#Color");
+        var Gender = $("#Gender");
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tblOrderDetails > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+        //Add Product cell.
+        cell = $(row.insertCell(-1));
+        cell.html(Product.val());
+
+        //Add Season cell.
+        cell = $(row.insertCell(-1));
+        cell.html(Season.val());
+
+        //Add Status cell.
+        cell = $(row.insertCell(-1));
+        cell.html(Status.val());
+
+        //Add Size cell.
+        cell = $(row.insertCell(-1));
+        cell.html(Size.val());
+
+        //Add Quantity cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(Quantity.val());
+
+        //Add Color cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(Color.val());
+
+        //Add Gender cell.
+        var cell = $(row.insertCell(-1));
+        cell.html(Gender.val());
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("class", "btn btn-default");
+
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        Product.val("");
+        Season.val("");
+        Status.val("");
+        Size.val("");
+        Quantity.val("");
+        Color.val("");
+        Gender.val("");
+    });
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        if (confirm("Do you want to delete: " + name)) {
+            //Get the reference of the Table.
+            var table = $("#tblOrderDetails")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+    $("body").on("click", "#Checkout", function () {
+        //Loop through the Table rows and build a JSON array.
+        var OrderDetails = new Array();
+        $("#tblOrderDetails TBODY TR").each(function () {
+            var row = $(this);
+            var OrderDetail = {};
+            OrderDetail.ProductId = row.find("TD").eq(0).html();
+            OrderDetail.Season = row.find("TD").eq(1).html();
+            OrderDetail.Status = row.find("TD").eq(2).html();
+            OrderDetail.Size = row.find("TD").eq(3).html();
+            OrderDetail.Quantity = row.find("TD").eq(4).html();
+            OrderDetail.Color = row.find("TD").eq(5).html();
+            OrderDetail.Gender = row.find("TD").eq(6).html();
+            OrderDetails.push(OrderDetail);
+            console.log(OrderDetails);
+        });
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "Post",
+            url: "http://localhost/BanckOfClothesServer/Home/Add",
+            data: JSON.stringify(OrderDetails),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                alert(r + " record(s) inserted.");
+            }
+        });
+    });
+</script>
