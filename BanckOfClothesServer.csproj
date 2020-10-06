@@ -2152,6 +2152,7 @@
     <Content Include="scr\download %282%29.jpg" />
     <Content Include="scr\download.jpg" />
     <Content Include="scr\wardrobe.png" />
+    <Content Include="SQL-script\script.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
